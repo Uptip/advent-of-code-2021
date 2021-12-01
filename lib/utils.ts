@@ -12,11 +12,13 @@ type Run = {
 export const loadFile = async (fileName: string): Promise<string> => {
   try {
     const data = await fs.readFile(
-      path.join(__dirname, '..', fileName),
+      path.join(__dirname, '..', 'src', fileName),
       'utf-8',
     );
     return data;
-  } catch (err) {}
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 export const range = (size: number): number[] => [...Array(size).keys()];
@@ -30,6 +32,7 @@ export const run = async ({
   comment,
 }: Run): Promise<void> => {
   const suffix = Boolean(comment) ? ` (${comment})` : ``;
+  console.log(':o');
   const fileContent = await loadFile(pathToInput);
   const input = formatInput(fileContent);
 
