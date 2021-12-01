@@ -2,12 +2,11 @@ export const formatInput = (input: string): number[] =>
   input.split('\n').filter(Boolean).map(Number);
 
 export const partOne = (input: number[]): number =>
-  input
-    .slice(1)
-    .reduce(
-      (acc, _, index) => acc + Number(input[index] > input[index - 1]),
-      0,
-    );
+  input.reduce(
+    (acc, _, index) =>
+      acc + Number(index >= 1 && input[index] > input[index - 1]),
+    0,
+  );
 
 export const partTwo = (input: number[]): number =>
   input.reduce(
