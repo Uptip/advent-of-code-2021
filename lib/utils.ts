@@ -32,7 +32,6 @@ export const run = async ({
   comment,
 }: Run): Promise<void> => {
   const suffix = Boolean(comment) ? ` (${comment})` : ``;
-  console.log(':o');
   const fileContent = await loadFile(pathToInput);
   const input = formatInput(fileContent);
 
