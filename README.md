@@ -1,6 +1,6 @@
 # 🎄 Advent of code 2021
 
-Built using [Tymate TypeScript Advent of Code starter](https://github.com/tymate/advent-of-code-starter-typescript)
+Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate/advent-of-code-starter-javascript)
 
 ## Completion
 

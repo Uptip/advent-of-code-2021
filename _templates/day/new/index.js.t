@@ -1,7 +1,7 @@
 ---
-to: src/<%=day%>/index.ts
+to: src/<%=day%>/index.js
 ---
-export const formatInput = (input: string) => {}
+export const formatInput = input => {};
 
 export const partOne = () => {};
 

@@ -1,11 +1,11 @@
-export const formatInput = (input: string) =>
+export const formatInput = input =>
   input
     .split('\n')
     .map(line => line.split(' '))
     .map(([direction, value]) => [direction, Number(value)]);
 
-export const partOne = (input: any): any => {
-  const position = input.reduce(
+export const partOne = input =>
+  input.reduce(
     (position, [direction, value]) => {
       switch (direction) {
         case 'up':
@@ -21,12 +21,10 @@ export const partOne = (input: any): any => {
       return position;
     },
     { horizontal: 0, depth: 0 },
-  );
-  return position.horizontal * position.depth;
-};
+  ) |> ({ horizontal, depth }) => horizontal * depth;
 
-export const partTwo = input => {
-  const position = input.reduce(
+export const partTwo = input =>
+  input.reduce(
     (position, [direction, value]) => {
       switch (direction) {
         case 'up':
@@ -43,6 +41,4 @@ export const partTwo = input => {
       return position;
     },
     { horizontal: 0, depth: 0, aim: 0 },
-  );
-  return position.horizontal * position.depth;
-};
+  ) |> ({ horizontal, depth }) => horizontal * depth;
