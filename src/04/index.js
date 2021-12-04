@@ -34,9 +34,12 @@ const addDrawnNumber = ({ board, number }) => {
   return board;
 };
 
-const hasWon = ({ board, dimensions }) =>
+const isWinning = ({ board, dimensions }) =>
   Object.values(board.drawnsByLine).includes(dimensions[0]) ||
   Object.values(board.drawnsByColumn).includes(dimensions[1]);
+
+const hasWon = ({ board, winningBoards }) =>
+  winningBoards.map(({ board }) => board.index).includes(board.index);
 
 const calculateResult = ({ number, board }) =>
   number * board.undrawn.reduce((total, number) => total + number, 0);
@@ -47,7 +50,7 @@ export const partOne = ({ drawnPool, dimensions, boards }) => {
       if (boards[b].undrawn.includes(number)) {
         boards[b] = addDrawnNumber({ number, board: boards[b] });
 
-        if (hasWon({ board: boards[b], dimensions })) {
+        if (isWinning({ board: boards[b], dimensions })) {
           return calculateResult({
             number,
             board: boards[b],
@@ -63,17 +66,17 @@ export const partTwo = ({ drawnPool, dimensions, boards }) => {
 
   for (let number of drawnPool) {
     for (let b = 0; b < boards.length; b++) {
-      if (winningBoards.map(({ board }) => board.index).includes(b)) {
+      if (hasWon({ board: boards[b], winningBoards })) {
         continue;
       }
 
       if (boards[b].undrawn.includes(number)) {
         boards[b] = addDrawnNumber({ number, board: boards[b] });
 
-        if (hasWon({ board: boards[b], dimensions })) {
+        if (isWinning({ board: boards[b], dimensions })) {
           winningBoards.push({
             number,
-            board: { ...boards[b] },
+            board: boards[b],
           });
         }
       }
