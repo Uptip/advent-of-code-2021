@@ -27,21 +27,17 @@ const ignoreDiagonals = ([[startX, startY], [endX, endY]]) =>
   startX === endX || startY === endY;
 
 const countDuplicates = input =>
-  Object.values(input).filter(v => v.length > 1).length;
+  Object.values(groupBy(input)).filter(v => v.length > 1).length;
 
 export const partOne = input =>
   input
     .filter(ignoreDiagonals)
     .map(getCoordinates)
     .flat()
-    .map(x => x.join(','))
-  |> groupBy
-  |> countDuplicates;
+    .map(x => x.join(',')) |> countDuplicates;
 
 export const partTwo = input =>
   input
     .map(getCoordinates)
     .flat()
-    .map(x => x.join(','))
-  |> groupBy
-  |> countDuplicates;
+    .map(x => x.join(',')) |> countDuplicates;
