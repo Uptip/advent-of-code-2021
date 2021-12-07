@@ -62,5 +62,14 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
       </td>
     </tr>
 
+    <tr>
+      <td>Day 07</td>
+      <td>
+        <a href="https://github.com/Uptip/advent-of-code-2021/tree/main/src/07">
+          <img src="https://badgen.net/badge/07/%E2%98%85%E2%98%85/green" alt="" />
+        </a>
+      </td>
+    </tr>
+
   </tbody>
 </table>
