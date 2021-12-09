@@ -1,10 +1,10 @@
-import { get, sum } from 'lodash';
+import { get } from 'lodash';
 
 export const formatInput = input =>
   input.split('\n').map(line => line.split('').map(Number));
 
 const getLowPoints = input => {
-  let output = [];
+  const output = [];
 
   for (let y = 0; y < input.length; y++) {
     for (let x = 0; x < input[y].length; x++) {
@@ -25,17 +25,13 @@ const getLowPoints = input => {
 };
 
 const getBasinsPoints = ({ start, input, visited }) => {
-  let { x, y } = start;
+  const { x, y } = start;
 
-  if (visited.includes(`${x}-${y}`)) {
-    return [];
-  } else {
-    visited.push(`${x}-${y}`);
-  }
-
-  if (get(input, [y, x], 9) === 9) {
+  if (visited.has(`${x},${y}`) || get(input, [y, x], 9) === 9) {
     return [];
   }
+
+  visited.add(`${x},${y}`);
 
   return [
     { x, y },
@@ -47,13 +43,16 @@ const getBasinsPoints = ({ start, input, visited }) => {
 };
 
 export const partOne = input =>
-  sum(getLowPoints(input).map(({ x, y }) => input[y][x] + 1));
+  getLowPoints(input)
+    .map(({ x, y }) => input[y][x] + 1)
+    .reduce((total, curr) => total + curr, 0);
 
 export const partTwo = input =>
   getLowPoints(input)
     .map(
       coordinates =>
-        getBasinsPoints({ start: coordinates, input, visited: [] }).length,
+        getBasinsPoints({ start: coordinates, input, visited: new Set() })
+          .length,
     )
     .sort((a, b) => b - a)
     .slice(0, 3)
