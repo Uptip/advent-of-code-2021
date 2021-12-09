@@ -24,7 +24,7 @@ const getLowPoints = input => {
   return output;
 };
 
-const getBasinsPoints = ({ start, input, visited }) => {
+const getBasinCoordinates = ({ start, input, visited }) => {
   const { x, y } = start;
 
   if (visited.has(`${x},${y}`) || get(input, [y, x], 9) === 9) {
@@ -35,23 +35,21 @@ const getBasinsPoints = ({ start, input, visited }) => {
 
   return [
     { x, y },
-    ...getBasinsPoints({ start: { x: x - 1, y }, input, visited }),
-    ...getBasinsPoints({ start: { x: x + 1, y }, input, visited }),
-    ...getBasinsPoints({ start: { x, y: y - 1 }, input, visited }),
-    ...getBasinsPoints({ start: { x, y: y + 1 }, input, visited }),
+    ...getBasinCoordinates({ start: { x: x - 1, y }, input, visited }),
+    ...getBasinCoordinates({ start: { x: x + 1, y }, input, visited }),
+    ...getBasinCoordinates({ start: { x, y: y - 1 }, input, visited }),
+    ...getBasinCoordinates({ start: { x, y: y + 1 }, input, visited }),
   ];
 };
 
 export const partOne = input =>
-  getLowPoints(input)
-    .map(({ x, y }) => input[y][x] + 1)
-    .reduce((total, curr) => total + curr, 0);
+  getLowPoints(input).reduce((total, { x, y }) => total + input[y][x] + 1, 0);
 
 export const partTwo = input =>
   getLowPoints(input)
     .map(
       coordinates =>
-        getBasinsPoints({ start: coordinates, input, visited: new Set() })
+        getBasinCoordinates({ start: coordinates, input, visited: new Set() })
           .length,
     )
     .sort((a, b) => b - a)
