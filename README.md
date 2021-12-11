@@ -52,7 +52,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 06</td>
       <td>
@@ -61,7 +60,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 07</td>
       <td>
@@ -70,7 +68,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 08</td>
       <td>
@@ -79,7 +76,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 09</td>
       <td>
@@ -88,7 +84,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 10</td>
       <td>
@@ -97,7 +92,6 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
     <tr>
       <td>Day 11</td>
       <td>
@@ -106,6 +100,5 @@ Built using [Tymate JavaScript Advent of Code starter](https://github.com/tymate
         </a>
       </td>
     </tr>
-
   </tbody>
 </table>
