@@ -1,10 +1,24 @@
-import { cloneDeep, get } from 'lodash';
+import { cloneDeep, get, times } from 'lodash';
+
+const wait = millis =>
+  new Promise(resolve => setTimeout(() => resolve(true), millis));
 
 export const formatInput = input =>
   input.split('\n').map(line => line.split('').map(Number));
 
-export const display = grid => {
-  console.log(grid.map(row => row.join('')).join('\n'));
+export const display = (grid, step) => {
+  process.stdout.write(
+    '\n' +
+      step +
+      '\n' +
+      grid
+        .map(row =>
+          row.map(value => (Number(value) === 0 ? '🐡' : '🐟')).join(''),
+        )
+        .join('\n') +
+      '\n',
+  );
+
   return grid;
 };
 
@@ -30,7 +44,7 @@ const flash = ({ grid, x, y, flashed }) => {
   return grid;
 };
 
-const computeStep = grid => {
+const computeStep = async (grid, step) => {
   let flashed = new Set();
 
   for (let y = 0; y < grid.length; y++) {
@@ -43,20 +57,22 @@ const computeStep = grid => {
     for (let x = 0; x < grid[y].length; x++) {
       if (grid[y][x] === 10) {
         flash({ grid, x, y, flashed });
+        display(grid, step);
+        await wait(10);
       }
     }
   }
 
-  return { grid, flashed };
+  return { grid: cloneDeep(grid), flashed };
 };
 
-export const partOne = input => {
+export const partOne = async input => {
   const currentGrid = cloneDeep(input);
   let totalFlashed = 0;
   let step = 0;
 
   while (step < 100) {
-    const { flashed } = computeStep(currentGrid);
+    const { flashed } = await computeStep(currentGrid);
     totalFlashed += flashed.size;
     step++;
   }
@@ -64,13 +80,14 @@ export const partOne = input => {
   return totalFlashed;
 };
 
-export const partTwo = input => {
-  let currentGrid = cloneDeep(input);
+export const partTwo = async input => {
   let step = 0;
 
   while (true) {
     step += 1;
-    const { grid, flashed } = computeStep(currentGrid);
+    const { grid, flashed } = computeStep(input, step);
+    await wait(50);
+    display(grid, step);
 
     if (flashed.size === 100) {
       return step;
