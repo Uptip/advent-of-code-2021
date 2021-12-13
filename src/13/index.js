@@ -11,24 +11,20 @@ export const formatInput = input =>
       .map(([axis, value]) => [axis, Number(value)]),
   });
 
-const display = grid => {
-  console.log(grid.map(line => line.join('')).join('\n'));
-};
-
-const generateGrid = dots => {
+const displayGrid = dots => {
   const [dimensionX, dimensionY] = [
-    max(dots.map(coordinate => Number(coordinate.split(',')[0]))) + 1,
-    max(dots.map(coordinate => Number(coordinate.split(',')[1]))) + 1,
+    max([...dots].map(coordinate => Number(coordinate.split(',')[0]))) + 1,
+    max([...dots].map(coordinate => Number(coordinate.split(',')[1]))) + 1,
   ];
 
-  const grid = times(dimensionY, () => times(dimensionX, () => '.'));
+  const grid = times(dimensionY, () => times(dimensionX, () => ' '));
 
-  for (const dot of dots) {
+  dots.forEach(dot => {
     const [x, y] = dot.split(',').map(Number);
-    grid[y][x] = '#';
-  }
+    grid[y][x] = '▉';
+  });
 
-  return grid;
+  return '\n' + grid.map(line => line.join('')).join('\n');
 };
 
 const fold = ({ dots, instruction }) => {
@@ -55,14 +51,9 @@ const fold = ({ dots, instruction }) => {
   return draft;
 };
 
-export const partOne = ({ dots, instructions }) => {
-  const [instruction] = instructions;
-  return fold({ dots, instruction }).size;
-};
+export const partOne = ({ dots, instructions }) =>
+  fold({ dots, instruction: instructions[0] }).size;
 
-export const partTwo = ({ dots, instructions }) => {
-  instructions.forEach(instruction => {
-    dots = fold({ dots, instruction });
-  });
-  display(generateGrid([...dots]));
-};
+export const partTwo = ({ dots, instructions }) =>
+  instructions.reduce((dots, instruction) => fold({ dots, instruction }), dots)
+  |> displayGrid;
