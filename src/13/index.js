@@ -17,11 +17,11 @@ const displayGrid = dots => {
     max([...dots].map(coordinate => Number(coordinate.split(',')[1]))) + 1,
   ];
 
-  const grid = times(dimensionY, () => times(dimensionX, () => ' '));
+  const grid = times(dimensionY, () => times(dimensionX, () => '  '));
 
   dots.forEach(dot => {
     const [x, y] = dot.split(',').map(Number);
-    grid[y][x] = '▉';
+    grid[y][x] = '▉▉';
   });
 
   return '\n' + grid.map(line => line.join('')).join('\n');
@@ -31,7 +31,7 @@ const fold = ({ dots, instruction }) => {
   const [axis, foldPosition] = instruction;
   const draft = new Set();
 
-  for (const dot of dots) {
+  dots.forEach(dot => {
     const [x, y] = dot.split(',').map(Number);
     if (axis === 'x') {
       if (x < foldPosition) {
@@ -46,7 +46,7 @@ const fold = ({ dots, instruction }) => {
         draft.add(`${x},${foldPosition - (y - foldPosition)}`);
       }
     }
-  }
+  });
 
   return draft;
 };
