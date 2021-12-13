@@ -60,4 +60,9 @@ export const partOne = ({ dots, instructions }) => {
   return fold({ dots, instruction }).size;
 };
 
-export const partTwo = () => {};
+export const partTwo = ({ dots, instructions }) => {
+  instructions.forEach(instruction => {
+    dots = fold({ dots, instruction });
+  });
+  display(generateGrid([...dots]));
+};
